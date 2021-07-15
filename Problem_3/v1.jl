@@ -7,6 +7,7 @@ function max_prime(num)
         # Check if number prime odd, divisible and prime
         if num % 2 != 0 && num % i == 0 && is_prime(i)
             # Divide number with prime factor to decrease computation load
+	    # Huge perf boost
             num /= i
             max = i > max ? i : max
             # println(max)
