@@ -1,4 +1,5 @@
 using BenchmarkTools
+include("../utils.jl")
 
 function perfect_square(n)
     root = sqrt(n)
@@ -13,6 +14,8 @@ function check_conjecture(n)
     end
     # find all primes lesser than the number
     for i in 2:(n-2)
+        # Overhead to cache repeat prime number values is more than the computation itself
+        # So no point memoizing
         if is_prime(i)
              # Subtract them from number
             square = (n - i)/2
@@ -30,19 +33,6 @@ function main()
         n += 2
     end
     return n
-end
-
-# Overhead to store memoized values is more than the computation itself
-# So no point memoizing
-function is_prime(num)
-    # Every non-prime number will have atleast one factor <= its square root.
-    # Check for it
-    for i in 2:isqrt(num)
-        if num % i == 0
-            return false
-        end
-    end
-    return true
 end
 
 @btime println(main())
