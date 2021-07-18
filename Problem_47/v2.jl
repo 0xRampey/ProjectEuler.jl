@@ -1,8 +1,7 @@
 using BenchmarkTools
-using Memoize
 include("../utils.jl")
 
-@memoize Dict function check_n_distinct_primes(n, number)
+function check_n_distinct_primes(n, number)
     count = 0
     for i = 2:number
         if number % i == 0 && is_prime(i)
@@ -17,28 +16,26 @@ end
 
 function n_ints_with_n_distinct_primes(n)
     # Let first set start with 3
+    # For n=4 => [3,4,5,6]
     first = 3
     while true
-        next = first
-        # Check disitnct primes for each of the n numbers of the set
-        for i = 1:n
-            if check_n_distinct_primes(n, next)
-                if next - first == n - 1
+        # Check disitnct primes starting from last element of the set
+        for i in (first + n - 1):-1:first
+            if check_n_distinct_primes(n, i)
+                if i == first
                     # We found our numbers
                     return first
-                else
-                    # Check for next consecutive number
-                    next += 1
                 end
             else
-                # Try  a different set of numbers
+                # Try the next set of numbers
+                # Reset first elemnt of set to latest failed check + 1
+                first = i+1
                 break
             end
         end
-        first += 1
     end
 end
 
-@time println(n_ints_with_n_distinct_primes(4))
+@btime println(n_ints_with_n_distinct_primes(4))
 
 # Resources

@@ -1,6 +1,6 @@
 function is_prime(num)
     # Every non-prime number will have atleast one factor <= its square root.
-    # Check for it 
+    # Just need to find that
     for i = 2:isqrt(num)
         if num % i == 0
             return false
