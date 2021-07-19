@@ -6,6 +6,8 @@
 - Problem_47:
     - v1 (with Memoization): `5.660733 seconds (308.26 k allocations: 15.081 MiB, 0.17% compilation time)`
     - v2: `1.842 s (8 allocations: 240 bytes)`
+    - v3: `2.869 ms (10 allocations: 7.63 MiB)`
+
 
 
 
